@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fog Mirror layout QA</title></head>
+<body>
+  <div id="app"></div>
+  <script type="module">
+    // Development-only fixture: exercise longest labels and visible mic settings
+    // without requesting access to camera or microphone. Not a production entry.
+    await import('/src/main.ts');
+    document.querySelector('#camera span').textContent = 'Hủy bật camera';
+    document.querySelector('#breath-toggle').textContent = 'Hủy bật micro';
+    document.querySelector('#breath-settings').hidden = false;
+    document.querySelector('#breath-status').textContent = 'Giữ yên 1,6 giây để đo tiếng nền…';
+  </script>
+</body>
+</html>

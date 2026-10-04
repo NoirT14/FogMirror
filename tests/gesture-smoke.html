@@ -1,0 +1,17 @@
+<!doctype html><html lang="vi"><meta charset="UTF-8"><title>Gesture model smoke test</title>
+<button id="run">Kiểm tra mô hình cục bộ (không camera)</button><p id="result" role="status">Chưa chạy</p>
+<script type="module">
+import { loadRecognizer } from '/src/gesture/loadRecognizer.ts';
+document.querySelector('#run').onclick = async () => {
+ const output=document.querySelector('#result'); output.textContent='Đang tải…';
+ let model;
+ try {
+  model=await loadRecognizer();
+  const canvas=document.createElement('canvas'); canvas.width=320; canvas.height=240;
+  const ctx=canvas.getContext('2d'); ctx.fillStyle='#ddd'; ctx.fillRect(0,0,320,240);
+  const result=model.recognizeForVideo(canvas,performance.now());
+  output.textContent=`PASS: mô hình tải và suy luận thành công; ${result.landmarks.length} bàn tay trên ảnh trống.`;
+ } catch(error) {output.textContent=`FAIL: ${error.message}`;}
+ finally {model?.close();}
+};
+</script></html>
